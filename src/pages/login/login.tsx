@@ -1,9 +1,17 @@
 import { GoogleLogin } from '@react-oauth/google';
-import { jwtDecode } from "jwt-decode";
-import { createSearchParams, useNavigate } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
+import { useState } from 'react';
 
+
+interface MyToken {
+    name: string;
+    email: string;
+    picture: string;
+    exp: number;
+    // whatever else is in the JWT.
+}
 export const Login = () => {
-    const navigate = useNavigate();
+    const [user, setUser] = useState<MyToken>()
     return (
         <>
             <div className='full-w  py-2'>
@@ -23,9 +31,9 @@ export const Login = () => {
                             <div className='flex justify-center py-5'>
                                 <GoogleLogin
                                     onSuccess={credentialResponse => {
-                                        console.log(credentialResponse);
-                                        const decoded = jwtDecode(credentialResponse?.credential || '');
-                                        console.log('asdasd', decoded)
+                                        const decodedToken = jwtDecode<MyToken>(credentialResponse.credential || '');
+                                        setUser(decodedToken)
+                                        console.log(user?.picture)
                                     }}
                                     onError={() => {
                                         console.log('Login Failed');
@@ -35,7 +43,14 @@ export const Login = () => {
                             </div>
                             <p className='text-white p-4 text-center text-xs'>Al registrarte aceptas los términos de uso y la política de privacidad.</p>
                         </div>
-                        <div className='flex justify-center'>
+                        <div className=''>
+                            <div className='flex justify-center'>
+                                <img className='size-16 rounded-full' src={user?.picture} alt="icon perfil" />
+                                <div className='pl-4 grid grid-cols-1 content-center'>
+                                    <h1>{user?.name}</h1>
+                                    <h2>{user?.email}</h2>
+                                </div>
+                            </div>
                             <img className='full-w p-5' src="https://static.vecteezy.com/system/resources/thumbnails/009/343/580/small_2x/3d-business-analysis-chart-illustration-png.png" alt="finanzas personales img" />
                         </div>
                     </div>
