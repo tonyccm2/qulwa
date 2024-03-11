@@ -1,5 +1,5 @@
 export const Categorys = () => {
     return (
-        <div>Categorys</div>
+        <div className="text-white">Categorys</div>
     )
 }

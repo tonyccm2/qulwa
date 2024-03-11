@@ -3,6 +3,8 @@ import { jwtDecode } from 'jwt-decode';
 import { Header } from '../../components/Header';
 import { Footer } from '../../components/Footer';
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { UserContext } from '../../context/UserContex';
 
 
 interface MyToken {
@@ -13,6 +15,7 @@ interface MyToken {
     // whatever else is in the JWT.
 }
 export const Login = () => {
+    const { setData } = useContext(UserContext)
     const navigate = useNavigate()
     return (
         <div className='min-h-screen flex flex-col justify-between'>
@@ -29,6 +32,7 @@ export const Login = () => {
                                 <GoogleLogin
                                     onSuccess={credentialResponse => {
                                         const decodedToken = jwtDecode<MyToken>(credentialResponse.credential || '');
+                                        setData({ name: decodedToken.name, email: decodedToken.email, picture: decodedToken.picture })
                                         navigate('/inicio', { state: { name: decodedToken.name, email: decodedToken.email, picture: decodedToken.picture } })
                                     }}
                                     onError={() => {

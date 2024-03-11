@@ -1,5 +1,5 @@
 export const DeleteProfile = () => {
   return (
-    <div>DeleteProfile</div>
+    <div className="text-white">DeleteProfile</div>
   )
 }
