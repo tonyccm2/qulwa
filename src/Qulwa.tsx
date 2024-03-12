@@ -16,20 +16,21 @@ import { ProtectedRoute } from './ProtectedRoute';
 
 
 function Qulwa() {
-  return <BrowserRouter>
-    <Routes>
-      <Route index path='/' element={<Login />} />
-
-      <Route path='/inicio/*' element={<Base />}>
-        <Route index element={<ProtectedRoute><Home /></ProtectedRoute>} />
-        <Route path="transacciones" element={<ProtectedRoute><Transactions /></ProtectedRoute>} />
-        <Route path="cuentas" element={<ProtectedRoute><Accounts /></ProtectedRoute>} />
-        <Route path="balance" element={<ProtectedRoute><Balance /></ProtectedRoute>} />
-        <Route path="categorias" element={<ProtectedRoute><Categorys /></ProtectedRoute>} />
-        <Route path="eliminar-perfil" element={<ProtectedRoute><DeleteProfile /></ProtectedRoute>} />
-      </Route>
-    </Routes>
-  </BrowserRouter>
+  return <div className='overflow-auto h-screen'>
+    <BrowserRouter>
+      <Routes>
+        <Route index path='/' element={<Login />} />
+        <Route path='/inicio/*' element={<Base />}>
+          <Route index element={<ProtectedRoute><Home /></ProtectedRoute>} />
+          <Route path="transacciones" element={<ProtectedRoute><Transactions /></ProtectedRoute>} />
+          <Route path="cuentas" element={<ProtectedRoute><Accounts /></ProtectedRoute>} />
+          <Route path="balance" element={<ProtectedRoute><Balance /></ProtectedRoute>} />
+          <Route path="categorias" element={<ProtectedRoute><Categorys /></ProtectedRoute>} />
+          <Route path="eliminar-perfil" element={<ProtectedRoute><DeleteProfile /></ProtectedRoute>} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  </div>
 }
 
 export default Qulwa
